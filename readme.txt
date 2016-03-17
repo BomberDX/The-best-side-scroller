@@ -1,1 +1,1 @@
-This is the repository for Missiom bit's group project, created bu Nicholas, Tom, Panda, Matthew, and sebastion
+This is the repository for Mission bit's group project, created by Nicholas, Tom, Panda, Matthew, and Sebastion.

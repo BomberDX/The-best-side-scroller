@@ -5,6 +5,14 @@
     <head>
     
         <script type = "text/javascript" src = "phaser.js"></script>
+        
+        <script type = "text/javascript" src = "TitleScreen.js"></script>
+        
+        <!-- The last script to be loaded should be the script that the game starts on-->
+
+        <script type = "text/javascript" src = "directory.js"></script>
+        
+        <!--- Has to be in this order because computer reads phaser.js first //directory.js depends on phaser so if directory is first, computer will ignore and pass over //should end on this script -->
     
     </head>
 
@@ -12,7 +20,7 @@
     
         <p> This is my first game. </p>
         
-        <div id = "gameDive"> </div> <!--- Differentiate-->
+        <div id = "gameDiv"></div> <!--- Differentiate-->
     
     </body>
 
