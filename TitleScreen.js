@@ -8,7 +8,10 @@ var TitleScreen = {
         game.load.image('logo', '/assets/images/mission_bit_logo.png');
         //loads an image named 'start'
         game.load.image('start', '/assets/images/start.png');
+    game.load.image('samus', '/assets/images/samus.jpg');
+   
     },
+    
     
     //the create method is run after the preload method
     //it is where we set up the basics of the game, essentially what it will look like when we start the game
@@ -17,8 +20,11 @@ var TitleScreen = {
         this.add.image(290, 100, 'logo');
         //adds a button with image 'start' at location (200, 180) that calls the method startGame when it is clicked on
         this.add.button(200, 180, 'start', this.startGame, this);
+        this.add.image(300, 300,'samus');
+        
         //makes the background color of the whole screen periwinkle
         game.stage.backgroundColor = '#CCCFFF';
+    
     },
 
     //this is a method we created and named ourselves
