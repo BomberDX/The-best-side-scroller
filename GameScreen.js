@@ -3,7 +3,10 @@ var GameScreen = {
         game.load.image('brick', 'assets/images/start1.png');
         game.load.image('ball', 'assets/images/start1.png');
         game.load.spritesheet('rm', '/assets/images/runningman.png', 64, 64, 10);
+        game.load.image('floor', 'assets/images/floor.jpg');
     },
+    
+    
     create: function() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         this.cursor = game.input.keyboard.createCursorKeys();
@@ -36,10 +39,22 @@ var GameScreen = {
         this.ball.body.collideWorldBounds = true;
         this.ball.body.bounce.x = 1;
         this.ball.body.bounce.y = 1;
+        
+        this.floor = game.add.sprite(0, 400, 'floor');
+        this.floor.height = 200;
+        
+        this.floor.width = game.width;
+
+        game.physics.enable(this.floor);
+        
+        this.floor.body.immovable = true;
+        
+        this.floor.body.allowGravity = false;
     
     },
     update: function() {
         game.physics.arcade.collide(this.ball, this.bricks, this.hit, null, this);
+        game.physics.arcade.collide(this.floor, this.rm);
             this.zxc.body.velocity.x = 0;
             this.zxc.body.velocity.y = 0;
         if (this.cursor.right.isDown) {
@@ -55,6 +70,8 @@ var GameScreen = {
         } if (this.cursor.down.isDown) { //if the down arrow is pressed, move downwards
             this.zxc.body.velocity.y = 350;
         }
+        
+        
 
     },
     
