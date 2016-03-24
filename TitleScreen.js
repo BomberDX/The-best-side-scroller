@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //creates a TitleScreen object
 var TitleScreen = {
     
@@ -12,7 +11,6 @@ var TitleScreen = {
     game.load.image('samus', '/assets/images/samus.jpg');
    
     },
-    
     
     //the create method is run after the preload method
     //it is where we set up the basics of the game, essentially what it will look like when we start the game
@@ -35,21 +33,4 @@ var TitleScreen = {
         this.state.start('GameScreen');
     }
     
-=======
-var TitleScreen = {
-    
-    // the preload method runs first
-    //it is were we load our assets
-    preload: function(){
-        game.load.image('logo', 'logo.jpg' );
-    },
-    create: function() {
-            this.add.image(490, 300, 'logo');
-            this.add.button(200, 180, 'logo', this.startGame, this);
-            game.state.backgroundColor = '#CCCFFF';
-        },
-    startGame: function() {
-        this.state.start('GameScreen')
-    }
->>>>>>> origin/Sebastiaan
 };
