@@ -5,11 +5,9 @@ var TitleScreen = {
     //it is where we load our assets
     preload : function() {
         //loads an image named 'logo'
-        game.load.image('logo', '/assets/images/mission_bit_logo.png');
-        //loads an image named 'start'
-        game.load.image('start', '/assets/images/start.png');
-    //lol
-   
+        game.load.image('zombie', '/assets/images/zombie1.png');
+        //loads an image named 'start'   
+        game.load.image('start1', '/assets/images/start1.png');
     },
     
     
@@ -17,13 +15,17 @@ var TitleScreen = {
     //it is where we set up the basics of the game, essentially what it will look like when we start the game
     create: function () {
         //adds an image with image 'logo' at (290, 100)
-        this.add.image(290, 100, 'logo');
+        this.zombie = this.add.image( 550, 100, 'zombie');
+        this.zombie.scale.x = 0.5;
+        this.zombie.scale.y = 0.5;
         //adds a button with image 'start' at location (200, 180) that calls the method startGame when it is clicked on
-        this.add.button(200, 180, 'start', this.startGame, this);
+        this.add.button(710, 350, 'start1', this.startGame, this);
+        var style = {font: '80px Arial', fill:'#FFFFFF', align: 'center'};
+        game.add.text(650, 360, 'Start')
         
         
         //makes the background color of the whole screen periwinkle
-        game.stage.backgroundColor = '#CCCFFF';
+        game.stage.backgroundColor = '#006600';
     
     },
 
