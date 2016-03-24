@@ -14,7 +14,6 @@ var GameScreen = {
         this.bricks.enableBody = true;
         
         this.zxc = game.add.sprite(40, 10, 'rm');
-
         this.zxc.animations.add('walk');
 
         this.zxc.animations.play('walk', 10, true);
@@ -23,11 +22,13 @@ var GameScreen = {
         this.zxc.body.collideWorldBounds = true;
         
         for (var i = 0; i <5; i++) {
-            for (var j = 0; j < 5; j++) {
-                game.add.sprite(55+i*60, 55+j*35, 'brick', 0, this.bricks);
+            
+        for (var j = 0; j < 5; j++) {
+                
+        game.add.sprite(55+i*60, 55+j*35, 'brick', 0, this.bricks);
             }
         } 
-        this.bricks.setAll('body.immovable', true);  
+        this.bricks.setAll('body.immovable', false);  
         
         this.ball = game.add.sprite(200, 300, 'ball');
         
@@ -40,21 +41,18 @@ var GameScreen = {
         this.ball.body.bounce.x = 1;
         this.ball.body.bounce.y = 1;
         
-        this.floor = game.add.sprite(0, 400, 'floor');
-        this.floor.height = 200;
-        
+        this.floor = game.add.sprite(0, 430, 'floor');
+        this.floor.height = 150;
         this.floor.width = game.width;
-
         game.physics.enable(this.floor);
-        
         this.floor.body.immovable = true;
-        
         this.floor.body.allowGravity = false;
     
     },
     update: function() {
         game.physics.arcade.collide(this.ball, this.bricks, this.hit, null, this);
-        game.physics.arcade.collide(this.floor, this.rm);
+        game.physics.arcade.collide(this.zxc, this.floor);
+            
             this.zxc.body.velocity.x = 0;
             this.zxc.body.velocity.y = 0;
         if (this.cursor.right.isDown) {
@@ -76,8 +74,8 @@ var GameScreen = {
     },
     
     hit: function (ball, brick) {
-        ball.body.velocity.x = 0
-        ball.body.velocity.y = 0
+        this.ball.body.velocity.x = 0;
+        this.ball.body.velocity.y = 0;
     }
     
 };
