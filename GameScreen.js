@@ -31,13 +31,10 @@ var GameScreen = {
         
         this.zxc = game.add.sprite(40, 10, 'rm');
 
-        
-        //enables the physics system for the ball
         game.physics.arcade.enable(this.zxc);
         this.zxc.animations.add('walk');
         this.zxc.animations.play('walk', 10, true);
 
-        //~
         this.mro = game.add.sprite(1000, 400, 'mo');
         this.mgm = game.add.sprite(900, 200, 'mm');
         
@@ -59,6 +56,8 @@ var GameScreen = {
     
     update: function() {        
         game.physics.arcade.collide(this.floor, this.zxc);
+        game.physics.arcade.collide(this.floor, this.mro);
+        game.physics.arcade.collide(this.floor, this.mgm);
 
         if (this.wasd.right.isDown) {
             this.zxc.body.velocity.x = 350;
