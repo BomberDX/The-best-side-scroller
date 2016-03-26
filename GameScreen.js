@@ -1,4 +1,5 @@
 var isFacingRight = true;
+
 var GameScreen = {
     preload: function() {
         game.load.image('brick', 'assets/images/start1.png');
@@ -9,7 +10,16 @@ var GameScreen = {
     },
     create: function() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.cursor = game.input.keyboard.createCursorKeys();
+        game.physics.arcade.gravity.y = 2000;
+        
+        //Keyboard
+         this.wasd = {
+             up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+             down: game.input.keyboard.addKey(Phaser.Keyboard.S),
+             left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+             right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+         };        
+        
         this.bricks = game.add.group();
         this.bricks.enableBody = true;
         
@@ -28,6 +38,7 @@ var GameScreen = {
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.mgm);
         this.zxc.body.immovable = true;
+        console.log(this.zxc.body.allowGravity);
         this.zxc.body.collideWorldBounds = true;
         this.mro.body.collideWorldBounds = true;
         this.mgm.body.collideWorldBounds = true;
@@ -52,22 +63,23 @@ var GameScreen = {
         this.ball.body.bounce.y = 1;
     
     },
+    
     update: function() {
         game.physics.arcade.collide(this.ball, this.bricks, this.hit, null, this);
-        this.zxc.body.velocity.x = 0;
-        this.zxc.body.velocity.y = 0;
-        if (this.cursor.right.isDown) {
+        if (this.wasd.right.isDown) {
             this.zxc.body.velocity.x = 350;
             this.zxc.anchor.setTo(.5,1);
             this.zxc.scale.x = -1;
-        } if (this.cursor.left.isDown) { //if the left arrow is pressed, move to the left
+        } else if (this.wasd.left.isDown) { //if the left arrow is pressed, move to the left
             this.zxc.anchor.setTo(.5,1);
             this.zxc.scale.x = 1;
             this.zxc.body.velocity.x = -350;
-        } if (this.cursor.up.isDown){ //if the up arrow is pressed, move upwards
+        } else if (this.wasd.up.isDown){ //if the up arrow is pressed, move upwards
             this.zxc.body.velocity.y = -350;
-        } if (this.cursor.down.isDown) { //if the down arrow is pressed, move downwards
+        } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
             this.zxc.body.velocity.y = 350;
+        } else {
+            this.zxc.body.velocity.x = 0;
         }
         
         if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
