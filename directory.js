@@ -1,5 +1,5 @@
 // Initialize Phaser game with screen size 650 x 480 in the gameDiv tag
-var game = new Phaser.Game(1420, 580, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(1000, 580, Phaser.AUTO, 'gameDiv');
 
 //adds the TitleScreen object as a Phaser state to the game
 game.state.add('TitleScreen', TitleScreen);
