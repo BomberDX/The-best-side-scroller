@@ -19,9 +19,9 @@ var TitleScreen = {
         this.zombie.scale.x = 0.5;
         this.zombie.scale.y = 0.5;
         //adds a button with image 'start' at location (200, 180) that calls the method startGame when it is clicked on
-        this.add.button(710, 350, 'start1', this.startGame, this);
+        this.add.button(game.world.centerX-50, game.world.centerY-50, 'start1', this.startGame, this);
         var style = {font: '80px Arial', fill:'#FFFFFF', align: 'center'};
-        game.add.text(650, 360, 'Start')
+        game.add.text(game.world.centerX - 50, game.world.centerY, 'Start');
         
         
         //makes the background color of the whole screen periwinkle
