@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 // Initialize Phaser game with screen size 650 x 480 in the gameDiv tag
-var game = new Phaser.Game(800, 580, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(1000, 580, Phaser.AUTO, 'gameDiv');
 
 @@ -11,4 +12,14 @@ game.state.add('GameScreen', GameScreen);
 //game.state.add('what the state will be named', the object that the state is contained within)
