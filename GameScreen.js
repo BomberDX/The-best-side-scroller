@@ -2,12 +2,13 @@ var isFacingRight = true;
 
 var GameScreen = {
     preload: function() {
-        game.load.spritesheet('rm', '/assets/images/runningman.png', 64, 64, 10);
+        game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
         game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
         game.load.image('floor', 'assets/images/floor.jpg');
     },
     create: function() {
+        this.jumpTimer = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
@@ -29,11 +30,12 @@ var GameScreen = {
         
         this.floor.body.collideWorldBounds = true;
         
-        this.zxc = game.add.sprite(40, 10, 'rm');
+        this.grg = game.add.sprite(40, 10, 'gr');
+        
 
-        game.physics.arcade.enable(this.zxc);
-        this.zxc.animations.add('walk');
-        this.zxc.animations.play('walk', 10, true);
+        game.physics.arcade.enable(this.grg);
+        this.grg.animations.add('walk');
+        this.grg.animations.play('walk', 10, true);
 
         this.mro = game.add.sprite(1000, 400, 'mo');
         this.mgm = game.add.sprite(900, 200, 'mm');
@@ -47,7 +49,7 @@ var GameScreen = {
         this.mro.animations.play('walk2', 8, true);
         this.mgm.animations.play('walk3', 4, true);
         
-        this.zxc.body.collideWorldBounds = true;
+        this.grg.body.collideWorldBounds = true;
         this.mro.body.collideWorldBounds = true;
         this.mgm.body.collideWorldBounds = true;
         
@@ -55,25 +57,24 @@ var GameScreen = {
     },
     
     update: function() {        
-        game.physics.arcade.collide(this.floor, this.zxc);
+        game.physics.arcade.collide(this.floor, this.grg);
         game.physics.arcade.collide(this.floor, this.mro);
         game.physics.arcade.collide(this.floor, this.mgm);
 
         if (this.wasd.right.isDown) {
-            this.zxc.body.velocity.x = 350;
-            this.zxc.anchor.setTo(.5,1);
-            this.zxc.scale.x = -1;
+            this.grg.body.velocity.x = 350;
+            this.grg.anchor.setTo(.5,1);
+            this.grg.scale.x = 1;
         } else if (this.wasd.left.isDown) { //if the left arrow is pressed, move to the left
-            this.zxc.anchor.setTo(.5,1);
-            this.zxc.scale.x = 1;
-            this.zxc.body.velocity.x = -350;
-        } else if (this.wasd.up.isDown){ //if the up arrow is pressed, move upwards
-            this.zxc.body.velocity.y = -350;
+            this.grg.anchor.setTo(.5,1);
+            this.grg.scale.x = -1;
+            this.grg.body.velocity.x = -350;
         } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
-            this.zxc.body.velocity.y = 350;
+            this.grg.body.velocity.y = 350;
         } else {
-            this.zxc.body.velocity.x = 0;
+            this.grg.body.velocity.x = 0;
         }
+        
         
         if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
             this.mro.body.velocity.x = 400;//is going to right of screen going this fast
@@ -100,6 +101,12 @@ var GameScreen = {
         } else {
             isFacingRight = true;
             
+        }
+         if (this.wasd.up.isDown && game.time.now > this.jumpTimer)
+        {   
+            console.log("here");   
+            this.grg.body.velocity.y = -700;
+            this.jumpTimer = game.time.now + 750;     
         }
 //        this.mro.animations.add('walk');
 //        this.mro.animations.play('walk', 10, true);
