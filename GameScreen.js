@@ -52,11 +52,11 @@ var GameScreen = {
         
         this.io = game.add.sprite(95, 200, 'pl');
         
-        this.la = game.add.sprite(95, 400, 'pl');
+        this.la = game.add.sprite(95, 370, 'pl');
         
         this.qe = game.add.sprite(410, 100, 'pl');
         
-        this.ru = game.add.sprite(710, 400, 'pl');
+        this.ru = game.add.sprite(710, 370, 'pl');
         
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.mgm);
@@ -112,6 +112,15 @@ var GameScreen = {
         this.ru.height = 50;
         this.ru.width = 200;
         this.ru.body.allowGravity = false;
+        
+        this.platforms = game.add.group();
+        
+        this.platforms.add(this.pl);
+        this.platforms.add(this.ts);
+        this.platforms.add(this.io);
+        this.platforms.add(this.la);
+        this.platforms.add(this.qe);
+        this.platforms.add(this.ru);
 
     },
     
@@ -119,12 +128,7 @@ var GameScreen = {
         game.physics.arcade.collide(this.floor, this.grg);
         game.physics.arcade.collide(this.floor, this.mro);
         game.physics.arcade.collide(this.floor, this.mgm);
-        game.physics.arcade.collide(this.pl, this.grg);
-        game.physics.arcade.collide(this.ts, this.grg);
-        game.physics.arcade.collide(this.io, this.grg);
-        game.physics.arcade.collide(this.la, this.grg);
-        game.physics.arcade.collide(this.qe, this.grg);
-        game.physics.arcade.collide(this.ru, this.grg);
+        game.physics.arcade.collide(this.platforms, this.grg);
 
         if (this.wasd.right.isDown) {
             this.grg.body.velocity.x = 350;
@@ -167,28 +171,11 @@ var GameScreen = {
             isFacingRight = true;
             
         }
-         if (this.wasd.up.isDown && game.time.now > this.jumpTimer)
-        {   
-            console.log("here");   
+        
+        if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {     
             this.grg.body.velocity.y = -750;
-            this.jumpTimer = game.time.now + 750;     
+            this.jumpTimer = game.time.now + 800;
         }
-//        this.mro.animations.add('walk');
-//        this.mro.animations.play('walk', 10, true);
-//        
-//        game.physics.arcade.enable(this.mro);
-//        
-//        this.mro.body.immovable = true;
-//        
-//        this.mro.body.collideWorldBounds = true
-//        
-//        this.mro.anchor.setTo(.5,1);
-//        this.mro.scale.x = 1;
-//        this.mro.anchor.setTo(.5,1);
-//        this.mro.scale.x = -1;
-//        this.mro.body.velocity.x = 400;
-//        this.mro.body.velocity.y = 400;
-
-    }
-    
+        
+    }   
 };
