@@ -6,22 +6,49 @@ var GameScreen = {
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
         game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
         game.load.image('floor', 'assets/images/floor.jpg');
+        game.load.image('user_bullet', 'assets/images/bullet.png');
+    
     },
     create: function() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
         //Keyboard
-         this.wasd = {
-             up: game.input.keyboard.addKey(Phaser.Keyboard.W),
-             down: game.input.keyboard.addKey(Phaser.Keyboard.S),
-             left: game.input.keyboard.addKey(Phaser.Keyboard.A),
-             right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+        this.wasd = {
+            up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+            down: game.input.keyboard.addKey(Phaser.Keyboard.S),
+            left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+              
          };
+       
+        spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        spacebar.onDown.add(create_bullet);
         
         this.floor = game.add.sprite(0, game.height - 50, 'floor');
         this.floor.height = 50;
         this.floor.width = game.width;
+        
+        //bullet function
+        function create_bullet() {
+            
+            this.bullet = game.add.sprite(50, 50, 'bullet');
+
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+
+            //  Our bullet group
+            bullets = game.add.group();
+            bullets.enableBody = true;
+            bullets.physicsBodyType = Phaser.Physics.ARCADE;
+            bullets.createMultiple(1, 'bullet');
+            bullets.setAll('anchor.x', 0.5);
+            bullets.setAll('anchor.y', 0.5);
+            bullets.setAll('outOfBoundsKill', true);
+            bullets.kill = function () {
+
+            };
+            bullets.setAll('checkWorldBounds', true);
+        }
         
         game.physics.arcade.enable(this.floor);
         
@@ -70,10 +97,15 @@ var GameScreen = {
         } else if (this.wasd.up.isDown){ //if the up arrow is pressed, move upwards
             this.zxc.body.velocity.y = -350;
         } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
+            
+        
             this.zxc.body.velocity.y = 350;
         } else {
             this.zxc.body.velocity.x = 0;
         }
+        
+        
+            
         
         if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
             this.mro.body.velocity.x = 400;//is going to right of screen going this fast
@@ -120,3 +152,5 @@ var GameScreen = {
     }
     
 };
+
+
