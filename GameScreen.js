@@ -6,7 +6,7 @@ var GameScreen = {
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
         game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
         game.load.image('floor', 'assets/images/floor.jpg');
-        game.load.image('user_bullet', 'assets/images/bullet.png');
+        game.load.image('bullet', 'assets/images/bullet.png');
     
     },
     create: function() {
@@ -23,16 +23,19 @@ var GameScreen = {
          };
        
         spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        spacebar.onDown.add(create_bullet);
+        spacebar.onDown.add(create_bullet, this);
         
         this.floor = game.add.sprite(0, game.height - 50, 'floor');
         this.floor.height = 50;
         this.floor.width = game.width;
         
         //bullet function
+        
+        
+        
         function create_bullet() {
             
-            this.bullet = game.add.sprite(50, 50, 'bullet');
+            this.bullet = game.add.sprite(this.zxc.x, this.zxc.y, 'bullet');
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -41,8 +44,8 @@ var GameScreen = {
             bullets.enableBody = true;
             bullets.physicsBodyType = Phaser.Physics.ARCADE;
             bullets.createMultiple(1, 'bullet');
-            bullets.setAll('anchor.x', 0.5);
-            bullets.setAll('anchor.y', 0.5);
+            bullets.setAll('anchor.x', 0);
+            bullets.setAll('anchor.y', 0);
             bullets.setAll('outOfBoundsKill', true);
             bullets.kill = function () {
 
