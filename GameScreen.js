@@ -7,8 +7,14 @@ var GameScreen = {
         game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
+        game.load.image('bg', '/assets/images/background.png', 1000, 100);
     },
     create: function() {
+       
+        game.add.image(0, 0,'bg');
+        this.bg = game.add.sprite(0, 0,'bg');
+        this.bg.width = game.width;
+        this.bg.height = game.height - 50;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
