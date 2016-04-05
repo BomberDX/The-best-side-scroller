@@ -44,8 +44,8 @@ var GameScreen = {
             bullets.enableBody = true;
             bullets.physicsBodyType = Phaser.Physics.ARCADE;
             bullets.createMultiple(1, 'bullet');
-            bullets.setAll('anchor.x', 0);
-            bullets.setAll('anchor.y', 0);
+            bullets.setAll('anchor.x', 0.5);
+            bullets.setAll('anchor.y', 0.5);
             bullets.setAll('outOfBoundsKill', true);
             bullets.kill = function () {
 
