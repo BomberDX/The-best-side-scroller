@@ -42,9 +42,7 @@ var GameScreen = {
         
         function create_bullet() {
             
-            this.bullet = game.add.sprite(this.zxc.x, this.zxc.y, 'bullet');
-
-            game.physics.startSystem(Phaser.Physics.ARCADE);
+            this.bullet = game.add.sprite(this.grg.x, this.grg.y, 'bullet');
 
             //  Our bullet group
             bullets = game.add.group();
