@@ -82,36 +82,42 @@ var GameScreen = {
         this.pl.height = 50;
         this.pl.width = 200;
         this.pl.body.allowGravity = false;
+        this.pl.body.checkCollision.down = false;
 
         this.ts.body.immovable = true;
         this.ts.body.collideWorldBounds = true;
         this.ts.height = 50;
         this.ts.width = 200;
         this.ts.body.allowGravity = false;
+        this.ts.body.checkCollision.down = false;
         
         this.io.body.immovable = true;
         this.io.body.collideWorldBounds = true;
         this.io.height = 50;
         this.io.width = 200;
         this.io.body.allowGravity = false;
+        this.io.body.checkCollision.down = false;
         
         this.la.body.immovable = true;
         this.la.body.collideWorldBounds = true;
         this.la.height = 50;
         this.la.width = 200;
         this.la.body.allowGravity = false;
+        this.la.body.checkCollision.down = false;
         
         this.qe.body.immovable = true;
         this.qe.body.collideWorldBounds = true;
         this.qe.height = 50;
         this.qe.width = 200;
         this.qe.body.allowGravity = false;
+        this.qe.body.checkCollision.down = false;
         
         this.ru.body.immovable = true;
         this.ru.body.collideWorldBounds = true;
         this.ru.height = 50;
         this.ru.width = 200;
         this.ru.body.allowGravity = false;
+        this.ru.body.checkCollision.down = false;
         
         this.platforms = game.add.group();
         
@@ -173,8 +179,8 @@ var GameScreen = {
         }
         
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {     
-            this.grg.body.velocity.y = -750;
-            this.jumpTimer = game.time.now + 800;
+            this.grg.body.velocity.y = -850;
+            this.jumpTimer = game.time.now + 900;
         }
         
     }   
