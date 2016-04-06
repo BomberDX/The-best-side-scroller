@@ -6,13 +6,9 @@ var GameScreen = {
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
         game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
         game.load.image('floor', 'assets/images/floor.jpg');
-<<<<<<< HEAD
         game.load.image('bullet', 'assets/images/bullet.png');
-    
-=======
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
         game.load.image('bg', '/assets/images/background.png', 1000, 100);
->>>>>>> master
     },
     create: function() {
        
@@ -178,23 +174,12 @@ var GameScreen = {
             this.grg.scale.x = -1;
             this.grg.body.velocity.x = -350;
         } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
-<<<<<<< HEAD
-            
-        
-            this.zxc.body.velocity.y = 350;
-=======
             this.grg.body.velocity.y = 350;
->>>>>>> master
         } else {
             this.grg.body.velocity.x = 0;
         }
         
         
-<<<<<<< HEAD
-            
-        
-=======
->>>>>>> master
         if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
             this.mro.body.velocity.x = 400;//is going to right of screen going this fast
             this.mro.anchor.setTo(.5,1);//will flip to the left
@@ -221,29 +206,6 @@ var GameScreen = {
             isFacingRight = true;
             
         }
-<<<<<<< HEAD
-//        this.mro.animations.add('walk');
-//        this.mro.animations.play('walk', 10, true);
-//        
-//        game.physics.arcade.enable(this.mro);
-//        
-//        this.mro.body.immovable = true;
-//        
-//        this.mro.body.collideWorldBounds = true
-//        
-//        this.mro.anchor.setTo(.5,1);
-//        this.mro.scale.x = 1;
-//        this.mro.anchor.setTo(.5,1);
-//        this.mro.scale.x = -1;
-//        this.mro.body.velocity.x = 400;
-//        this.mro.body.velocity.y = 400;
-
-    }
-    
-};
-
-
-=======
         
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {     
             this.grg.body.velocity.y = -850;
@@ -252,4 +214,3 @@ var GameScreen = {
         
     }   
 };
->>>>>>> master
