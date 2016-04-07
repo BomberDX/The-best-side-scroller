@@ -4,7 +4,7 @@ var GameScreen = {
     preload: function() {
         game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
-        game.load.spritesheet('mm', 'assets/images/megamanrun.png',90, 104, 4);
+        game.load.spritesheet('mm', 'assets/images/Screen Shot 2016-04-06 at 5.42.50 PM.png',106.8, 106, 5);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
