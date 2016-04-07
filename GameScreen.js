@@ -75,13 +75,12 @@ var GameScreen = {
         this.mgm = game.add.sprite(900, 200, 'mm');
         this.pl = game.add.sprite(710, 200, 'pl');
         
-        this.ts = game.add.sprite(410, 320, 'pl');
+        this.ts = game.add.sprite(410, 290, 'pl');
         
         this.io = game.add.sprite(95, 200, 'pl');
         
         this.la = game.add.sprite(95, 370, 'pl');
         
-        this.qe = game.add.sprite(410, 100, 'pl');
         
         this.ru = game.add.sprite(710, 370, 'pl');
         
@@ -91,7 +90,6 @@ var GameScreen = {
         game.physics.arcade.enable(this.ts);
         game.physics.arcade.enable(this.io);
         game.physics.arcade.enable(this.la);
-        game.physics.arcade.enable(this.qe);
         game.physics.arcade.enable(this.ru);
         
         this.mro.animations.add('walk2');
@@ -106,42 +104,35 @@ var GameScreen = {
         
         this.pl.body.immovable = true;
         this.pl.body.collideWorldBounds = true;
-        this.pl.height = 50;
+        this.pl.height = 30;
         this.pl.width = 200;
         this.pl.body.allowGravity = false;
         this.pl.body.checkCollision.down = false;
 
         this.ts.body.immovable = true;
         this.ts.body.collideWorldBounds = true;
-        this.ts.height = 50;
+        this.ts.height = 30;
         this.ts.width = 200;
         this.ts.body.allowGravity = false;
         this.ts.body.checkCollision.down = false;
         
         this.io.body.immovable = true;
         this.io.body.collideWorldBounds = true;
-        this.io.height = 50;
+        this.io.height = 30;
         this.io.width = 200;
         this.io.body.allowGravity = false;
         this.io.body.checkCollision.down = false;
         
         this.la.body.immovable = true;
         this.la.body.collideWorldBounds = true;
-        this.la.height = 50;
+        this.la.height = 30;
         this.la.width = 200;
         this.la.body.allowGravity = false;
         this.la.body.checkCollision.down = false;
         
-        this.qe.body.immovable = true;
-        this.qe.body.collideWorldBounds = true;
-        this.qe.height = 50;
-        this.qe.width = 200;
-        this.qe.body.allowGravity = false;
-        this.qe.body.checkCollision.down = false;
-        
         this.ru.body.immovable = true;
         this.ru.body.collideWorldBounds = true;
-        this.ru.height = 50;
+        this.ru.height = 30;
         this.ru.width = 200;
         this.ru.body.allowGravity = false;
         this.ru.body.checkCollision.down = false;
@@ -152,7 +143,6 @@ var GameScreen = {
         this.platforms.add(this.ts);
         this.platforms.add(this.io);
         this.platforms.add(this.la);
-        this.platforms.add(this.qe);
         this.platforms.add(this.ru);
 
     },
@@ -162,6 +152,8 @@ var GameScreen = {
         game.physics.arcade.collide(this.floor, this.mro);
         game.physics.arcade.collide(this.floor, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
+        
+        game.physics.arcade.collide(this.mgm, this.bullets);
 
         if (this.wasd.right.isDown) {
             this.grg.body.velocity.x = 350;
@@ -177,20 +169,21 @@ var GameScreen = {
             this.grg.body.velocity.x = 0;
         }
         
-        
         if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
             this.mro.body.velocity.x = 400;//is going to right of screen going this fast
             this.mro.anchor.setTo(.5,1);//will flip to the left
+            
             this.mro.scale.x = 1;//will flip to the left
         } else if (this.mro.body.x !== 0){//makes mario flip
             isFacingRight = false;//causes him to go left
             this.mro.anchor.setTo(.5,1);//will flip to the right
             this.mro.scale.x = -1;//will flip to the right
             this.mro.body.velocity.x = -400;//is going to the left of the screen going this fast
+            
         } else {
             isFacingRight = true;
-            
         }
+        
         if (this.mgm.body.x <= game.world.width - 50 && isFacingRight) {
             this.mgm.body.velocity.x = 450;//is going to right of screen going this fast
             this.mgm.anchor.setTo(.5,1);//will flip to the left
