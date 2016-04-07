@@ -117,6 +117,19 @@ var GameScreen = {
 //        this.mro.body.velocity.x = 400;
 //        this.mro.body.velocity.y = 400;
 
+        //when will gameover happen
+        //it happen when "zxc" walk to left of game screen, where x = 0
+        //call endGame() method
+        if(this.zxc.body.x ==0 ){
+            this.endGame();
+        }
+    },
+    //this method just start/change to another state call GameOverScreen
+    //check in index.html
+    //directory.js
+    endGame: function() {
+        //start the state 'GameScreen', as defined in the directory
+        this.state.start('GameOverScreen');
     }
-    
 };
+ 
