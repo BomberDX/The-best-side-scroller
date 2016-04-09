@@ -1,5 +1,9 @@
 var isFacingRight = true;
 
+var background;
+var floors;
+
+
 var GameScreen = {
     preload: function() {
         game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
@@ -12,14 +16,6 @@ var GameScreen = {
     },
     create: function() {
        
-        game.add.image(0, 0,'bg');
-        this.bg = game.add.sprite(0, 0,'bg');
-        this.bg.width = game.width;
-        this.bg.height = game.height - 50;
-        this.jumpTimer = 0;
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.physics.arcade.gravity.y = 2000;
-        
         //Keyboard
         this.wasd = {
             up: game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -28,16 +24,22 @@ var GameScreen = {
             right: game.input.keyboard.addKey(Phaser.Keyboard.D)
               
          };
+          
+        
+        background = game.add.tileSprite(0, 0, 1000, 800, 'bg');
+        floors = game.add.tileSprite(0, 548, 1000, game.width, 'floor');
+        
+
+        this.jumpTimer = 0;
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.arcade.gravity.y = 2000;
+        
        
         spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         spacebar.onDown.add(create_bullet, this);
         
-        this.floor = game.add.sprite(0, game.height - 50, 'floor');
-        this.floor.height = 50;
-        this.floor.width = game.width;
         
         //bullet function
-        
         
         
         function create_bullet() {
@@ -52,17 +54,14 @@ var GameScreen = {
             bullets.setAll('anchor.x', 0.5);
             bullets.setAll('anchor.y', 0.5);
             bullets.setAll('outOfBoundsKill', true);
+
             bullets.kill = function () {
 
             };
             bullets.setAll('checkWorldBounds', true);
         }
+
         
-        game.physics.arcade.enable(this.floor);
-        
-        this.floor.body.immovable = true;
-        
-        this.floor.body.collideWorldBounds = true;
         
         this.grg = game.add.sprite(0, 10, 'gr');
         
@@ -137,6 +136,7 @@ var GameScreen = {
         this.ru.body.allowGravity = false;
         this.ru.body.checkCollision.down = false;
         
+
         this.platforms = game.add.group();
         
         this.platforms.add(this.pl);
@@ -144,6 +144,7 @@ var GameScreen = {
         this.platforms.add(this.io);
         this.platforms.add(this.la);
         this.platforms.add(this.ru);
+
 
     },
     
@@ -153,8 +154,9 @@ var GameScreen = {
         game.physics.arcade.collide(this.floor, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
         
-        game.physics.arcade.collide(this.mgm, this.bullets);
-
+        background.tilePosition.x += 2;
+        floors.tilePosition.x += 2;
+        
         if (this.wasd.right.isDown) {
             this.grg.body.velocity.x = 350;
             this.grg.anchor.setTo(.5,1);
@@ -205,3 +207,5 @@ var GameScreen = {
         
     }   
 };
+    
+
