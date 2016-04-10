@@ -28,6 +28,12 @@ var GameScreen = {
         
         background = game.add.tileSprite(0, 0, 1000, 800, 'bg');
         floors = game.add.tileSprite(0, 548, 1000, game.width, 'floor');
+        floors.physicsType = Phaser.SPRITE;
+        game.physics.arcade.enable(floors);
+        
+        floors.collideWorldBounds = true;
+        floors.body.immovable = true;
+        floors.body.allowGravity = false;
         
 
         this.jumpTimer = 0;
@@ -64,7 +70,6 @@ var GameScreen = {
         
         
         this.grg = game.add.sprite(0, 10, 'gr');
-        
 
         game.physics.arcade.enable(this.grg);
         this.grg.animations.add('walk');
@@ -149,9 +154,9 @@ var GameScreen = {
     },
     
     update: function() {        
-        game.physics.arcade.collide(this.floor, this.grg);
-        game.physics.arcade.collide(this.floor, this.mro);
-        game.physics.arcade.collide(this.floor, this.mgm);
+        game.physics.arcade.collide(floors, this.grg);
+        game.physics.arcade.collide(floors, this.mro);
+        game.physics.arcade.collide(floors, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
         
         background.tilePosition.x += 2;
