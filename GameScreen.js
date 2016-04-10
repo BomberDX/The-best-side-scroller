@@ -3,6 +3,8 @@ var isFacingRight = true;
 var background;
 var floors;
 
+var bullets;
+
 
 var GameScreen = {
     preload: function() {
@@ -40,34 +42,12 @@ var GameScreen = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
-       
-        spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        spacebar.onDown.add(create_bullet, this);
+        game.input.onDown.add(this.createBullet, this);
         
         
         //bullet function
-        
-        
-        function create_bullet() {
-            
-            this.bullet = game.add.sprite(this.grg.x, this.grg.y, 'bullet');
-
-            //  Our bullet group
-            bullets = game.add.group();
-            bullets.enableBody = true;
-            bullets.physicsBodyType = Phaser.Physics.ARCADE;
-            bullets.createMultiple(1, 'bullet');
-            bullets.setAll('anchor.x', 0.5);
-            bullets.setAll('anchor.y', 0.5);
-            bullets.setAll('outOfBoundsKill', true);
-
-            bullets.kill = function () {
-
-            };
-            bullets.setAll('checkWorldBounds', true);
-        }
-
-        
+        bullets = game.add.group();
+        bullets.enableBody = true;
         
         this.grg = game.add.sprite(0, 10, 'gr');
 
@@ -76,7 +56,10 @@ var GameScreen = {
         this.grg.animations.play('walk', 10, true);
 
         this.mro = game.add.sprite(1000, 400, 'mo');
+        game.physics.arcade.enable(this.mro);
         this.mgm = game.add.sprite(900, 200, 'mm');
+        game.physics.arcade.enable(this.mgm);
+        
         this.pl = game.add.sprite(710, 200, 'pl');
         
         this.ts = game.add.sprite(410, 290, 'pl');
@@ -159,6 +142,8 @@ var GameScreen = {
         game.physics.arcade.collide(floors, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
         
+        game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
+        
         background.tilePosition.x += 2;
         floors.tilePosition.x += 2;
         
@@ -210,7 +195,23 @@ var GameScreen = {
             this.jumpTimer = game.time.now + 900;
         }
         
-    }   
+    },
+    
+    createBullet: function() {
+            temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
+            temp.body.allowGravity = false;
+            temp.body.velocity.x = 50;
+            //  Our bullet group
+            bullets.setAll('anchor.x', 0.5);
+            bullets.setAll('anchor.y', 0.5);
+            bullets.setAll('outOfBoundsKill', true);
+            bullets.setAll('checkWorldBounds', true);
+    },
+    
+    hit: function(chara, bullet) {
+        chara.kill();
+        bullet.kill();
+    }
 };
     
 
