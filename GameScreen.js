@@ -1,4 +1,6 @@
 var isFacingRight = true;
+var isFacingRight2 = true;
+var charaFacingRight = true;
 
 var background;
 var floors;
@@ -56,6 +58,7 @@ var GameScreen = {
         this.grg.animations.play('walk', 10, true);
 
         this.mro = game.add.sprite(1000, 400, 'mo');
+        
         game.physics.arcade.enable(this.mro);
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
@@ -66,10 +69,10 @@ var GameScreen = {
         
         this.io = game.add.sprite(95, 200, 'pl');
         
-        this.la = game.add.sprite(95, 370, 'pl');
+        this.la = game.add.sprite(95, 380, 'pl');
         
         
-        this.ru = game.add.sprite(710, 370, 'pl');
+        this.ru = game.add.sprite(710, 380, 'pl');
         
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.mgm);
@@ -144,14 +147,18 @@ var GameScreen = {
         
         game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
         
-        background.tilePosition.x += 2;
-        floors.tilePosition.x += 2;
+        game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
+        
+        background.tilePosition.x -= 2;
+        floors.tilePosition.x -= 2;
         
         if (this.wasd.right.isDown) {
+            charaFacingRight = true;
             this.grg.body.velocity.x = 350;
             this.grg.anchor.setTo(.5,1);
             this.grg.scale.x = 1;
         } else if (this.wasd.left.isDown) { //if the left arrow is pressed, move to the left
+            charaFacingRight = false;
             this.grg.anchor.setTo(.5,1);
             this.grg.scale.x = -1;
             this.grg.body.velocity.x = -350;
@@ -176,17 +183,17 @@ var GameScreen = {
             isFacingRight = true;
         }
         
-        if (this.mgm.body.x <= game.world.width - 50 && isFacingRight) {
+        if (this.mgm.body.x <= game.world.width - 50 && isFacingRight2) {
             this.mgm.body.velocity.x = 450;//is going to right of screen going this fast
             this.mgm.anchor.setTo(.5,1);//will flip to the left
             this.mgm.scale.x = 1;//will flip to the left
         } else if (this.mgm.body.x !== 0){//makes megaman flip
-            isFacingRight = false;//causes him to go left
+            isFacingRight2 = false;//causes him to go left
             this.mgm.anchor.setTo(.5,1);//will flip to the right
             this.mgm.scale.x = -1;//will flip to the right
             this.mgm.body.velocity.x = -450;//is going to the left of the screen going this fast
         } else {
-            isFacingRight = true;
+            isFacingRight2 = true;
             
         }
         
@@ -198,10 +205,16 @@ var GameScreen = {
     },
     
     createBullet: function() {
+        if (charaFacingRight) {    
             temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
             temp.body.allowGravity = false;
-            temp.body.velocity.x = 50;
-            //  Our bullet group
+            temp.body.velocity.x = 50; 
+        } else {
+            temp = game.add.sprite(this.grg.x-50, this.grg.y - 50, 'bullet', 0, bullets);
+            temp.body.allowGravity = false;
+            temp.body.velocity.x = -50; 
+        }
+        //  Our bullet group
             bullets.setAll('anchor.x', 0.5);
             bullets.setAll('anchor.y', 0.5);
             bullets.setAll('outOfBoundsKill', true);
