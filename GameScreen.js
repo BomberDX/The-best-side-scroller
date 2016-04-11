@@ -65,11 +65,11 @@ var GameScreen = {
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
         
-        this.pl = game.add.sprite(710, 200, 'pl');
+        this.pl = game.add.sprite(710, 210, 'pl');
         
         this.ts = game.add.sprite(410, 290, 'pl');
         
-        this.io = game.add.sprite(95, 200, 'pl');
+        this.io = game.add.sprite(95, 210, 'pl');
         
         this.la = game.add.sprite(95, 380, 'pl');
         
