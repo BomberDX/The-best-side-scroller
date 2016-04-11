@@ -56,10 +56,12 @@ var GameScreen = {
         game.physics.arcade.enable(this.grg);
         this.grg.animations.add('walk');
         this.grg.animations.play('walk', 10, true);
-
-        this.mro = game.add.sprite(1000, 400, 'mo');
         
+        this.mro = game.add.sprite(1000, 400, 'mo');
         game.physics.arcade.enable(this.mro);
+        this.mro.body.allowGravity = true;
+        
+        
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
         
@@ -145,12 +147,19 @@ var GameScreen = {
         game.physics.arcade.collide(floors, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
         
+        game.physics.arcade.collide(this.platforms, this.mro);
+        
         game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
         
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
         
-        background.tilePosition.x -= 2;
+        if (charaFacingRight) {
+            background.tilePosition.x -= 2;
         floors.tilePosition.x -= 2;
+        } else {
+            background.tilePosition.x += 2;
+        floors.tilePosition.x += 2;
+        }
         
         if (this.wasd.right.isDown) {
             charaFacingRight = true;
@@ -164,6 +173,7 @@ var GameScreen = {
             this.grg.body.velocity.x = -350;
         } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
             this.grg.body.velocity.y = 350;
+            this.mro.body.velocity.y = 350;
         } else {
             this.grg.body.velocity.x = 0;
         }
@@ -178,7 +188,6 @@ var GameScreen = {
             this.mro.anchor.setTo(.5,1);//will flip to the right
             this.mro.scale.x = -1;//will flip to the right
             this.mro.body.velocity.x = -400;//is going to the left of the screen going this fast
-            
         } else {
             isFacingRight = true;
         }
@@ -199,6 +208,7 @@ var GameScreen = {
         
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {     
             this.grg.body.velocity.y = -850;
+            this.mro.body.velocity.y = -850;
             this.jumpTimer = game.time.now + 900;
         }
         
