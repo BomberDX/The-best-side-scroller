@@ -195,6 +195,8 @@ var GameScreen = {
             this.jumpTimer = game.time.now + 900;
         }
         
+        //
+        game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
     },
     
     createBullet: function() {
@@ -211,6 +213,14 @@ var GameScreen = {
     hit: function(chara, bullet) {
         chara.kill();
         bullet.kill();
+    },
+    
+    //this method just start/change to another state call GameOverScreen
+    //check in index.html
+    //directory.js
+    endGame: function() {
+        //start the state 'GameScreen', as defined in the directory
+        this.state.start('GameOverScreen');
     }
 };
     
