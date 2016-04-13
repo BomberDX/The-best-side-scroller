@@ -18,6 +18,7 @@ var GameScreen = {
     },
     create: function() {
        
+        
         //Keyboard
         this.wasd = {
             up: game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -26,7 +27,12 @@ var GameScreen = {
             right: game.input.keyboard.addKey(Phaser.Keyboard.D)
               
          };
+        
+//        this.leftButton = {
+//        leftButton: game.input.mousePointer.addkey(Phaser.MOUSEDOWN)
+//        };
           
+        console.log(game.input.activePointer);
         
         background = game.add.tileSprite(0, 0, 1000, 800, 'bg');
         floors = game.add.tileSprite(0, 548, 1000, game.width, 'floor');
@@ -60,16 +66,16 @@ var GameScreen = {
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
         
-        this.pl = game.add.sprite(710, 200, 'pl');
+        this.pl = game.add.sprite(710, 210, 'pl');
         
         this.ts = game.add.sprite(410, 290, 'pl');
         
-        this.io = game.add.sprite(95, 200, 'pl');
+        this.io = game.add.sprite(95, 210, 'pl');
         
-        this.la = game.add.sprite(95, 370, 'pl');
+        this.la = game.add.sprite(95, 380, 'pl');
         
         
-        this.ru = game.add.sprite(710, 370, 'pl');
+        this.ru = game.add.sprite(710, 380, 'pl');
         
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.mgm);
@@ -143,6 +149,9 @@ var GameScreen = {
         game.physics.arcade.collide(this.platforms, this.grg);
         
         game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
+        game.physics.arcade.collide(bullets, floors, this.destroy, null, this);
+        
+        game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
         
         background.tilePosition.x += 2;
         floors.tilePosition.x += 2;
@@ -190,13 +199,21 @@ var GameScreen = {
             
         }
         
-        if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {     
+        if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {
+            
             this.grg.body.velocity.y = -850;
             this.jumpTimer = game.time.now + 900;
+
         }
         
-        //
-        game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
+        for (var i = 0; i < this.platforms.length; i++) {
+            for (var j = 0; j < bullets.length; j++) {
+                if (Phaser.Rectangle.intersects(this.platforms.getChildAt(i).getBounds(), bullets.getChildAt(j).getBounds())) {
+                    bullets.getChildAt(j).kill();    
+                }
+            }
+        }
+
     },
     
     createBullet: function() {
@@ -208,6 +225,7 @@ var GameScreen = {
             bullets.setAll('anchor.y', 0.5);
             bullets.setAll('outOfBoundsKill', true);
             bullets.setAll('checkWorldBounds', true);
+            game.physics.arcade.moveToPointer(temp, 300);
     },
     
     hit: function(chara, bullet) {
@@ -221,7 +239,10 @@ var GameScreen = {
     endGame: function() {
         //start the state 'GameScreen', as defined in the directory
         this.state.start('GameOverScreen');
-    }
-};
+    },
     
-
+    destroy: function(floor, bullet) {
+        bullet.kill();
+    }
+    
+};
