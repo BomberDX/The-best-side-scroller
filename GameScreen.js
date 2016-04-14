@@ -1,6 +1,8 @@
 var isFacingRight = true;
 var isFacingRight2 = true;
 var charaFacingRight = true;
+var mrokill = true;
+var counter = 3;
 
 var background;
 var floors;
@@ -12,7 +14,6 @@ var GameScreen = {
     preload: function() {
         game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
-        game.load.spritesheet('mm', 'assets/images/Screen Shot 2016-04-06 at 5.42.50 PM.png',106.8, 106, 5);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
@@ -62,10 +63,6 @@ var GameScreen = {
         game.physics.arcade.enable(this.mro);
         this.mro.body.allowGravity = true;
         
-        
-        this.mgm = game.add.sprite(900, 200, 'mm');
-        game.physics.arcade.enable(this.mgm);
-        
         this.pl = game.add.sprite(710, 210, 'pl');
         
         this.ts = game.add.sprite(410, 290, 'pl');
@@ -78,7 +75,6 @@ var GameScreen = {
         this.ru = game.add.sprite(710, 380, 'pl');
         
         game.physics.arcade.enable(this.mro);
-        game.physics.arcade.enable(this.mgm);
         game.physics.arcade.enable(this.pl);
         game.physics.arcade.enable(this.ts);
         game.physics.arcade.enable(this.io);
@@ -86,14 +82,11 @@ var GameScreen = {
         game.physics.arcade.enable(this.ru);
         
         this.mro.animations.add('walk2');
-        this.mgm.animations.add('walk3');
 
         this.mro.animations.play('walk2', 8, true);
-        this.mgm.animations.play('walk3', 4, true);
         
         this.grg.body.collideWorldBounds = true;
         this.mro.body.collideWorldBounds = true;
-        this.mgm.body.collideWorldBounds = true;
         
         this.pl.body.immovable = true;
         this.pl.body.collideWorldBounds = true;
@@ -145,15 +138,11 @@ var GameScreen = {
     update: function() {        
         game.physics.arcade.collide(floors, this.grg);
         game.physics.arcade.collide(floors, this.mro);
-        game.physics.arcade.collide(floors, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
-        game.physics.arcade.collide(this.platforms, this.mgm);
         game.physics.arcade.collide(this.platforms, this.mro);      
-        
-        game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
         game.physics.arcade.collide(bullets, floors, this.destroy, null, this);
         
-        game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
+        game.physics.arcade.collide(this.grg, [this.mro], this.endGame, null, this);
 
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
         
@@ -196,20 +185,6 @@ var GameScreen = {
             isFacingRight = true;
         }
         
-        if (this.mgm.body.x <= game.world.width - 50 && isFacingRight2) {
-            this.mgm.body.velocity.x = 450;//is going to right of screen going this fast
-            this.mgm.anchor.setTo(.5,1);//will flip to the left
-            this.mgm.scale.x = 1;//will flip to the left
-        } else if (this.mgm.body.x !== 0){//makes megaman flip
-            isFacingRight2 = false;//causes him to go left
-            this.mgm.anchor.setTo(.5,1);//will flip to the right
-            this.mgm.scale.x = -1;//will flip to the right
-            this.mgm.body.velocity.x = -450;//is going to the left of the screen going this fast
-        } else {
-            isFacingRight2 = true;
-            
-        }
-        
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {
             
             this.grg.body.velocity.y = -850;
@@ -236,6 +211,7 @@ var GameScreen = {
 //            help.body.velocity.x = -50;
 //        }
     },
+
     
     createBullet: function() {
         if (charaFacingRight) {    
@@ -258,9 +234,14 @@ var GameScreen = {
     },
     
     hit: function(chara, bullet) {
-        chara.kill();
-        bullet.kill();
+        if (counter < 1) {
+            chara.kill();
+        } else {
+            bullet.kill();
+            counter--;
+        }
     },
+    
     
     //this method just start/change to another state call GameOverScreen
     //check in index.html
@@ -273,10 +254,4 @@ var GameScreen = {
     destroy: function(floor, bullet) {
         bullet.kill();
     }
-    
-//    tether: function(this.grg, mrobl) {
-//        grg.kill();
-//        mrobl.kill(); }
-    
-    
 };
