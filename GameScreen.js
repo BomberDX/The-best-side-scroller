@@ -5,7 +5,8 @@ var charaFacingRight = true;
 var background;
 var floors;
 var bullets;
-var mrobl;
+var mbls;
+var grgcount;
 
 
 var GameScreen = {
@@ -17,7 +18,7 @@ var GameScreen = {
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
         game.load.image('bg', '/assets/images/background.png', 1000, 100);
-        game.load.image('mrobl', '/assets/images/mario_bullet.png');
+        game.load.image('mbl', '/assets/images/mario_bullet.png');
     },
     create: function() {
        
@@ -42,15 +43,19 @@ var GameScreen = {
         
 
         this.jumpTimer = 0;
+        this.mroJumpTimer = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
         game.input.onDown.add(this.createBullet, this);
-        
-        
+             
         //bullet function
         bullets = game.add.group();
         bullets.enableBody = true;
+        mbls = game.add.group();
+        mbls.enableBody = true;
+        
+        grgcount = 3;
         
         this.grg = game.add.sprite(0, 10, 'gr');
 
@@ -157,6 +162,14 @@ var GameScreen = {
 
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
         
+        if (bullets, this.grg) {
+            grgcount = grgcount - 1;
+        }
+        
+        if (grgcount = 0) {
+            grg.kill();
+        }
+        
         if (charaFacingRight) {
         background.tilePosition.x -= 2;
         floors.tilePosition.x -= 2;
@@ -213,9 +226,13 @@ var GameScreen = {
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {
             
             this.grg.body.velocity.y = -850;
-            this.mro.body.velocity.y = -850;
             this.jumpTimer = game.time.now + 900;
 
+        }
+        
+        if (game.time.now > this.mroJumpTimer) {
+            this.mro.body.velocity.y = -850;
+            this.mroJumpTimer = game.time.now + 1100;
         }
         
         for (var i = 0; i < this.platforms.length; i++) {
@@ -225,17 +242,19 @@ var GameScreen = {
                 }
             }
         }
-
+    },
+    
+//    createMarioBullet: function() {
 //        if (isFacingRight) {
-//            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mrobl', 0, mrobl);
+//            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mbl', 0, mbls);
 //            help.body.allowGravity = false;
 //           help.body.velocity.x = 50;
 //        } else {
-//            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mrobl', 0, mrobl);
+//            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
 //            help.body.allowGravity = false;
 //            help.body.velocity.x = -50;
 //        }
-    },
+//    },
     
     createBullet: function() {
         if (charaFacingRight) {    
@@ -273,10 +292,6 @@ var GameScreen = {
     destroy: function(floor, bullet) {
         bullet.kill();
     }
-    
-//    tether: function(this.grg, mrobl) {
-//        grg.kill();
-//        mrobl.kill(); }
     
     
 };
