@@ -1,12 +1,11 @@
 var isFacingRight = true;
 var isFacingRight2 = true;
 var charaFacingRight = true;
-
 var background;
 var floors;
 var bullets;
 var mbls;
-var grgcount;
+var grgcount = 3;
 
 
 var GameScreen = {
@@ -41,7 +40,6 @@ var GameScreen = {
         floors.body.immovable = true;
         floors.body.allowGravity = false;
         
-
         this.jumpTimer = 0;
         this.mroJumpTimer = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -54,8 +52,6 @@ var GameScreen = {
         bullets.enableBody = true;
         mbls = game.add.group();
         mbls.enableBody = true;
-        
-        grgcount = 3;
         
         this.grg = game.add.sprite(0, 10, 'gr');
 
@@ -157,18 +153,10 @@ var GameScreen = {
         
         game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
         game.physics.arcade.collide(bullets, floors, this.destroy, null, this);
-        
+//        game.physics.arcade.collide(this.grg, this.mro, this.lit, null, this);
         game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
 
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
-        
-        if (bullets, this.grg) {
-            grgcount = grgcount - 1;
-        }
-        
-        if (grgcount = 0) {
-            grg.kill();
-        }
         
         if (charaFacingRight) {
         background.tilePosition.x -= 2;
@@ -291,7 +279,14 @@ var GameScreen = {
     
     destroy: function(floor, bullet) {
         bullet.kill();
-    }
+    },
     
+//    lit: function(is, bullet) {
+//        if (grgcount < 1) {
+//        is.kill();
+//    } else {
+//        grgcount--;
+//        bullet.kill();
+//    }
     
 };
