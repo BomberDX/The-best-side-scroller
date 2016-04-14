@@ -9,6 +9,8 @@ game.state.add('GameScreen', GameScreen);
 
 //add this new gameover screen state
 game.state.add('GameOverScreen', GameOverScreen);
+//add this winscreen state
+
 
 //to add more states
 //game.state.add('what the state will be named', the object that the state is contained within)

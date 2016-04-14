@@ -272,7 +272,8 @@ var GameScreen = {
     
     destroy: function(floor, bullet) {
         bullet.kill();
-    }
+    },
+    
     
 //    tether: function(this.grg, mrobl) {
 //        grg.kill();
