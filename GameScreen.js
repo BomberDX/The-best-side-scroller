@@ -3,7 +3,8 @@ var isFacingRight2 = true;
 var charaFacingRight = true;
 var mrokill = true;
 var counter = 3;
-
+var counterr = 5;
+var counterrr = 7;
 var background;
 var floors;
 var bullets;
@@ -241,7 +242,7 @@ var GameScreen = {
             counter--;
         }
     },
-    
+
     
     //this method just start/change to another state call GameOverScreen
     //check in index.html
