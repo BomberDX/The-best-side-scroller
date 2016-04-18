@@ -5,9 +5,9 @@ var charaFacingRight = true;
 var background;
 var floors;
 var bullets;
-var mrobl;
-
-
+var mrob;
+var help;
+var nextShot;
 var GameScreen = {
     preload: function() {
         game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
@@ -17,7 +17,7 @@ var GameScreen = {
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
         game.load.image('bg', '/assets/images/background.png', 1000, 100);
-        game.load.image('mrobl', '/assets/images/mario_bullet.png');
+        game.load.image('mrob', '/assets/images/mario_bullet.png');
     },
     create: function() {
        
@@ -47,6 +47,7 @@ var GameScreen = {
         
         game.input.onDown.add(this.createBullet, this);
         
+        nextShot = game.time.now
         
         //bullet function
         bullets = game.add.group();
@@ -65,6 +66,9 @@ var GameScreen = {
         
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
+        
+        mrob = game.add.group();
+        mrob.enableBody = true;
         
         this.pl = game.add.sprite(710, 210, 'pl');
         
@@ -142,7 +146,8 @@ var GameScreen = {
 
     },
     
-    update: function() {        
+    update: function() {  
+        
         game.physics.arcade.collide(floors, this.grg);
         game.physics.arcade.collide(floors, this.mro);
         game.physics.arcade.collide(floors, this.mgm);
@@ -196,6 +201,12 @@ var GameScreen = {
             isFacingRight = true;
         }
         
+//        if (this.game.input.isDown){
+//            
+//        this.mro = createBullets()
+//        
+//        }
+//        
         if (this.mgm.body.x <= game.world.width - 50 && isFacingRight2) {
             this.mgm.body.velocity.x = 450;//is going to right of screen going this fast
             this.mgm.anchor.setTo(.5,1);//will flip to the left
@@ -235,26 +246,46 @@ var GameScreen = {
 //            help.body.allowGravity = false;
 //            help.body.velocity.x = -50;
 //        }
+    
+    
+        
+function shoot(){
+
+if(this.input.isDown && nextShot>game.time.now){return;} // too early
+
+/* make shot */
+
+nextShot = game.time.now + 1000; // wait at least 1 second (1000ms) to next shot
+
+}
+        
     },
     
     createBullet: function() {
-        if (charaFacingRight) {    
-            temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
-            temp.body.allowGravity = false;
-            temp.body.velocity.x = 50; 
-        } else {
-            temp = game.add.sprite(this.grg.x-50, this.grg.y - 50, 'bullet', 0, bullets);
-            temp.body.allowGravity = false;
-            temp.body.velocity.x = -50; 
-        }
-        
-        //  Our bullet group
-            bullets.setAll('anchor.x', 0.5);
-            bullets.setAll('anchor.y', 0.5);
-            bullets.setAll('outOfBoundsKill', true);
-            bullets.setAll('checkWorldBounds', true);
-            game.physics.arcade.moveToPointer(temp, 300);
+//        if (count > 0){
 
+        
+        
+            if (charaFacingRight) {    
+                temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
+                temp.body.allowGravity = false;
+                temp.body.velocity.x = 50; 
+            } else {
+                temp = game.add.sprite(this.grg.x-50, this.grg.y - 50, 'bullet', 0, bullets);
+                temp.body.allowGravity = false;
+                temp.body.velocity.x = -50; 
+            }
+
+
+            //  Our bullet group
+                bullets.setAll('anchor.x', 0.5);
+                bullets.setAll('anchor.y', 0.5);
+                bullets.setAll('outOfBoundsKill', true);
+                bullets.setAll('checkWorldBounds', true);
+                game.physics.arcade.moveToPointer(temp, 300);
+            
+            count = 0;
+            //}
     },
     
     hit: function(chara, bullet) {
