@@ -1,23 +1,35 @@
 var isFacingRight = true;
 var isFacingRight2 = true;
 var charaFacingRight = true;
+var mrokill = true;
+var counter = 3;
 
 var background;
 var floors;
 var bullets;
+<<<<<<< HEAD
 var mrob;
 var help;
 var nextShot;
+=======
+var mbls;
+var grgcount = 3;
+
+
+>>>>>>> master
 var GameScreen = {
     preload: function() {
         game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
-        game.load.spritesheet('mm', 'assets/images/Screen Shot 2016-04-06 at 5.42.50 PM.png',106.8, 106, 5);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', '/assets/images/platforms.png', 100, 100, 45);
         game.load.image('bg', '/assets/images/background.png', 1000, 100);
+<<<<<<< HEAD
         game.load.image('mrob', '/assets/images/mario_bullet.png');
+=======
+        game.load.image('mbl', '/assets/images/mario_bullet.png');
+>>>>>>> master
     },
     create: function() {
        
@@ -40,18 +52,24 @@ var GameScreen = {
         floors.body.immovable = true;
         floors.body.allowGravity = false;
         
-
         this.jumpTimer = 0;
+        this.mroJumpTimer = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.gravity.y = 2000;
         
         game.input.onDown.add(this.createBullet, this);
+<<<<<<< HEAD
         
         nextShot = game.time.now
         
+=======
+             
+>>>>>>> master
         //bullet function
         bullets = game.add.group();
         bullets.enableBody = true;
+        mbls = game.add.group();
+        mbls.enableBody = true;
         
         this.grg = game.add.sprite(0, 10, 'gr');
 
@@ -63,6 +81,7 @@ var GameScreen = {
         game.physics.arcade.enable(this.mro);
         this.mro.body.allowGravity = true;
         
+<<<<<<< HEAD
         
         this.mgm = game.add.sprite(900, 200, 'mm');
         game.physics.arcade.enable(this.mgm);
@@ -70,6 +89,8 @@ var GameScreen = {
         mrob = game.add.group();
         mrob.enableBody = true;
         
+=======
+>>>>>>> master
         this.pl = game.add.sprite(710, 210, 'pl');
         
         this.ts = game.add.sprite(410, 290, 'pl');
@@ -82,7 +103,6 @@ var GameScreen = {
         this.ru = game.add.sprite(710, 380, 'pl');
         
         game.physics.arcade.enable(this.mro);
-        game.physics.arcade.enable(this.mgm);
         game.physics.arcade.enable(this.pl);
         game.physics.arcade.enable(this.ts);
         game.physics.arcade.enable(this.io);
@@ -90,14 +110,11 @@ var GameScreen = {
         game.physics.arcade.enable(this.ru);
         
         this.mro.animations.add('walk2');
-        this.mgm.animations.add('walk3');
 
         this.mro.animations.play('walk2', 8, true);
-        this.mgm.animations.play('walk3', 4, true);
         
         this.grg.body.collideWorldBounds = true;
         this.mro.body.collideWorldBounds = true;
-        this.mgm.body.collideWorldBounds = true;
         
         this.pl.body.immovable = true;
         this.pl.body.collideWorldBounds = true;
@@ -150,15 +167,15 @@ var GameScreen = {
         
         game.physics.arcade.collide(floors, this.grg);
         game.physics.arcade.collide(floors, this.mro);
-        game.physics.arcade.collide(floors, this.mgm);
         game.physics.arcade.collide(this.platforms, this.grg);
-        game.physics.arcade.collide(this.platforms, this.mgm);
         game.physics.arcade.collide(this.platforms, this.mro);      
-        
-        game.physics.arcade.collide(bullets, this.mgm, this.hit, null, this);
-        game.physics.arcade.collide(bullets, floors, this.destroy, null, this);
-        
+
+//        game.physics.arcade.collide(this.grg, this.mro, this.lit, null, this);
         game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
+
+        
+        game.physics.arcade.collide(this.grg, [this.mro], this.endGame, null, this);
+
 
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
         
@@ -201,6 +218,7 @@ var GameScreen = {
             isFacingRight = true;
         }
         
+<<<<<<< HEAD
 //        if (this.game.input.isDown){
 //            
 //        this.mro = createBullets()
@@ -221,12 +239,18 @@ var GameScreen = {
             
         }
         
+=======
+>>>>>>> master
         if (this.wasd.up.isDown && game.time.now > this.jumpTimer) {
             
             this.grg.body.velocity.y = -850;
-            this.mro.body.velocity.y = -850;
             this.jumpTimer = game.time.now + 900;
 
+        }
+        
+        if (game.time.now > this.mroJumpTimer) {
+            this.mro.body.velocity.y = -850;
+            this.mroJumpTimer = game.time.now + 1100;
         }
         
         for (var i = 0; i < this.platforms.length; i++) {
@@ -236,16 +260,19 @@ var GameScreen = {
                 }
             }
         }
-
+    },
+    
+//    createMarioBullet: function() {
 //        if (isFacingRight) {
-//            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mrobl', 0, mrobl);
+//            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mbl', 0, mbls);
 //            help.body.allowGravity = false;
 //           help.body.velocity.x = 50;
 //        } else {
-//            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mrobl', 0, mrobl);
+//            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
 //            help.body.allowGravity = false;
 //            help.body.velocity.x = -50;
 //        }
+<<<<<<< HEAD
     
     
         
@@ -260,6 +287,10 @@ nextShot = game.time.now + 1000; // wait at least 1 second (1000ms) to next shot
 }
         
     },
+=======
+//    },
+
+>>>>>>> master
     
     createBullet: function() {
 //        if (count > 0){
@@ -289,9 +320,14 @@ nextShot = game.time.now + 1000; // wait at least 1 second (1000ms) to next shot
     },
     
     hit: function(chara, bullet) {
-        chara.kill();
-        bullet.kill();
+        if (counter < 1) {
+            chara.kill();
+        } else {
+            bullet.kill();
+            counter--;
+        }
     },
+    
     
     //this method just start/change to another state call GameOverScreen
     //check in index.html
@@ -299,15 +335,7 @@ nextShot = game.time.now + 1000; // wait at least 1 second (1000ms) to next shot
     endGame: function() {
         //start the state 'GameScreen', as defined in the directory
         this.state.start('GameOverScreen');
-    },
-    
-    destroy: function(floor, bullet) {
-        bullet.kill();
     }
     
-//    tether: function(this.grg, mrobl) {
-//        grg.kill();
-//        mrobl.kill(); }
-    
-    
 };
+
