@@ -230,7 +230,7 @@ var GameScreen = {
     
     createBullet: function() {
         
-        if (time > 60) {
+        if (time > 30) {
             time = 0;
             if (charaFacingRight) {    
                 temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
