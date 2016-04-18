@@ -147,6 +147,7 @@ var GameScreen = {
         game.physics.arcade.collide(this.platforms, this.mro);
 
 //        game.physics.arcade.collide(this.grg, this.mro, this.lit, null, this);
+        
         game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
 
         
@@ -268,6 +269,8 @@ var GameScreen = {
     destroy: function(grg, mbls) {
         if (grgcount < 1) {
             grg.kill();
+            //call endscreen
+            this.endGame();
         } else {
             mbls.kill();
             grgcount--;
