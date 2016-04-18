@@ -10,6 +10,8 @@ var bullets;
 var mbls;
 var grgcount = 3;
 
+var time = 60;
+
 
 var GameScreen = {
     preload: function() {
@@ -137,7 +139,8 @@ var GameScreen = {
 
     },
     
-    update: function() {        
+    update: function() {
+        time++;
         game.physics.arcade.collide(floors, this.grg);
         game.physics.arcade.collide(floors, this.mro);
         game.physics.arcade.collide(this.platforms, this.grg);
@@ -226,23 +229,26 @@ var GameScreen = {
 
     
     createBullet: function() {
-        if (charaFacingRight) {    
-            temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
-            temp.body.allowGravity = false;
-            temp.body.velocity.x = 50; 
-        } else {
-            temp = game.add.sprite(this.grg.x-50, this.grg.y - 50, 'bullet', 0, bullets);
-            temp.body.allowGravity = false;
-            temp.body.velocity.x = -50; 
-        }
         
-        //  Our bullet group
-            bullets.setAll('anchor.x', 0.5);
-            bullets.setAll('anchor.y', 0.5);
-            bullets.setAll('outOfBoundsKill', true);
-            bullets.setAll('checkWorldBounds', true);
-            game.physics.arcade.moveToPointer(temp, 300);
+        if (time > 30) {
+            time = 0;
+            if (charaFacingRight) {    
+                temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
+                temp.body.allowGravity = false;
+                temp.body.velocity.x = 50; 
+            } else {
+                temp = game.add.sprite(this.grg.x-50, this.grg.y - 50, 'bullet', 0, bullets);
+                temp.body.allowGravity = false;
+                temp.body.velocity.x = -50; 
+            }
 
+            //  Our bullet group
+                bullets.setAll('anchor.x', 0.5);
+                bullets.setAll('anchor.y', 0.5);
+                bullets.setAll('outOfBoundsKill', true);
+                bullets.setAll('checkWorldBounds', true);
+                game.physics.arcade.moveToPointer(temp, 300);
+        }
     },
     
     hit: function(chara, bullet) {
