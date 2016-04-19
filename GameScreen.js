@@ -8,7 +8,7 @@ var background;
 var floors;
 var bullets;
 var mbls;
-var grgcount = 3;
+var grgcount = 2;
 
 var time = 60;
 
@@ -144,9 +144,10 @@ var GameScreen = {
         game.physics.arcade.collide(floors, this.grg);
         game.physics.arcade.collide(floors, this.mro);
         game.physics.arcade.collide(this.platforms, this.grg);
-        game.physics.arcade.collide(this.platforms, this.mro);      
+        game.physics.arcade.collide(this.platforms, this.mro);
 
 //        game.physics.arcade.collide(this.grg, this.mro, this.lit, null, this);
+        
         game.physics.arcade.collide(this.grg, [this.mro, this.mgm], this.endGame, null, this);
 
         
@@ -154,6 +155,8 @@ var GameScreen = {
 
 
         game.physics.arcade.collide(bullets, this.mro, this.hit, null, this);
+        
+        game.physics.arcade.collide(mbls, this.grg, this.destroy, null, this);
         
         if (charaFacingRight) {
         background.tilePosition.x -= 2;
@@ -204,6 +207,7 @@ var GameScreen = {
         if (game.time.now > this.mroJumpTimer) {
             this.mro.body.velocity.y = -850;
             this.mroJumpTimer = game.time.now + 1100;
+            this.createMarioBullet();
         }
         
         for (var i = 0; i < this.platforms.length; i++) {
@@ -215,17 +219,19 @@ var GameScreen = {
         }
     },
     
-//    createMarioBullet: function() {
-//        if (isFacingRight) {
-//            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mbl', 0, mbls);
-//            help.body.allowGravity = false;
-//           help.body.velocity.x = 50;
-//        } else {
-//            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
-//            help.body.allowGravity = false;
-//            help.body.velocity.x = -50;
-//        }
-//    },
+    createMarioBullet: function() {
+        if (isFacingRight) {
+            help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mbl', 0, mbls);
+            help.body.allowGravity = false;
+           help.body.velocity.x = 50;
+            help.body.velocity.y = 50;
+        } else {
+            help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
+            help.body.allowGravity = false;
+            help.body.velocity.x = -50;
+            help.body.velocity.y = -50;
+        }
+    },
 
     
     createBullet: function() {
@@ -258,6 +264,17 @@ var GameScreen = {
         } else {
             bullet.kill();
             counter--;
+        }
+    },
+    
+    destroy: function(grg, mbls) {
+        if (grgcount < 1) {
+            grg.kill();
+            //call endscreen
+            this.endGame();
+        } else {
+            mbls.kill();
+            grgcount--;
         }
     },
     
