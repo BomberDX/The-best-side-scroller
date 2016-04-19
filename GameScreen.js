@@ -225,13 +225,13 @@ var GameScreen = {
             help.body.allowGravity = false;
 //           help.body.velocity.x = 50;
 //            help.body.velocity.y = 50;
-            game.arcade.physics.moveToObject(help, this.grg, 200);
+            game.physics.arcade.moveToObject(help, this.grg, 200);
         } else {
             help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
             help.body.allowGravity = false;
 //            help.body.velocity.x = -50;
 //            help.body.velocity.y = -50;
-            game.arcade.physics.moveToObject(help, this.grg, 200);
+            game.physics.arcade.moveToObject(help, this.grg, 200);
         }
     },
 
