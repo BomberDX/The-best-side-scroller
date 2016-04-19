@@ -1,8 +1,8 @@
 var WinScreen = {
     preload: function () {
-        game.load.image = ('ch''/assets/images/character copy.png');
-        game.load.image = ('yw' '/assets/images/youwin.png');
-        game.load.image = ('bg' '/assets/images/background.png');
+        game.load.image = ('ch','/assets/images/character copy.png');
+        game.load.image = ('yw', '/assets/images/youwin.png');
+        game.load.image = ('bg', '/assets/images/background.png');
     },
     create: function () {
         this.wasd = {
@@ -27,5 +27,7 @@ var WinScreen = {
         this.ch = game.add.image (500, 500, 'ch');
         this.text = game.add.text (600, 450, 'WOOHOO!! YOU WON!!');
         var style = {font: '100px Arial', fill:'#000000', align: 'center'};
-        
+    }
+    
+};
     
