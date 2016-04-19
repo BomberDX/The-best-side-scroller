@@ -223,13 +223,15 @@ var GameScreen = {
         if (isFacingRight) {
             help = game.add.sprite(this.mro.x+30, this.mro.y - 30, 'mbl', 0, mbls);
             help.body.allowGravity = false;
-           help.body.velocity.x = 50;
-            help.body.velocity.y = 50;
+//            help.body.velocity.x = 50;
+//            help.body.velocity.y = 50;
+            game.physics.arcade.moveToObject(help,this.grg,200);
         } else {
             help = game.add.sprite(this.mro.x-30, this.mro.y - 30, 'mbl', 0, mbls);
             help.body.allowGravity = false;
-            help.body.velocity.x = -50;
-            help.body.velocity.y = -50;
+//            help.body.velocity.x = -50;
+//            help.body.velocity.y = -50;
+              game.physics.arcade.moveToObject(help,this.grg,200);
         }
     },
 
@@ -239,7 +241,7 @@ var GameScreen = {
         if (time > 30) {
             time = 0;
             if (charaFacingRight) {    
-                temp = game.add.sprite(this.grg.x+50, this.grg.y - 50, 'bullet', 0, bullets);
+                temp = game.add.sprite(this.grg.xhtml+50, this.grg.y - 50, 'bullet', 0, bullets);
                 temp.body.allowGravity = false;
                 temp.body.velocity.x = 50; 
             } else {
