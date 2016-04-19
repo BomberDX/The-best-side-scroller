@@ -254,6 +254,7 @@ var GameScreen = {
     hit: function(chara, bullet) {
         if (counter < 1) {
             chara.kill();
+            this.winGame();
         } else {
             bullet.kill();
             counter--;
@@ -267,6 +268,11 @@ var GameScreen = {
     endGame: function() {
         //start the state 'GameScreen', as defined in the directory
         this.state.start('GameOverScreen');
+    },
+    
+    winGame: function() {
+        //start the state 'GameScreen', as defined in the directory
+        this.state.start('WinScreen');
     }
     
 };
