@@ -268,6 +268,7 @@ var GameScreen = {
             grg.kill();
             //call endscreen
             this.endGame();
+            grgcount = 2;
         } else {
             mbls.kill();
             grgcount--;
