@@ -2,7 +2,7 @@ var isFacingRight = true;
 var isFacingRight2 = true;
 var charaFacingRight = true;
 var mrokill = true;
-var counter = 3;
+var counter = 9;
 
 var background;
 var floors;
@@ -265,6 +265,7 @@ var GameScreen = {
         if (counter < 1) {
             chara.kill();
             this.winGame();
+            counter = 9;
         } else {
             bullet.kill();
             counter--;
