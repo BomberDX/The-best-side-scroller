@@ -283,6 +283,10 @@ var GameScreen = {
         }
     },
     
+    tall: function(mbls, bullets) {
+        mbls.kill();
+        bullets.kill();
+    },
     
     //this method just start/change to another state call GameOverScreen
     //check in index.html
