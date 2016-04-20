@@ -9,9 +9,8 @@ var GameOverScreen =  {
         this.bg.width = game.width;
         this.bg.height = game.height;
         var style = {font: '100px Arial', fill:'#000000', align: 'center'};
-        this.text = game.add.text(game.world.centerX, game.world.centerY, 'GAME OVER');
-        this.text = game.add.text(game.world.centerX, game.world.centerY+40, 'TRY AGAIN');
-        this.test = this.add.button( 460, 400, 'go', this.startGame, this);
+        this.text = game.add.text(game.world.centerX-40, game.world.centerY-40, 'GAME OVER');
+        this.test = this.add.button(459, 300, 'go', this.startGame, this);
     },
     
     //this method just start/change to another state call GameOverScreen
