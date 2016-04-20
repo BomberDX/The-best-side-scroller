@@ -265,7 +265,6 @@ var GameScreen = {
         if (counter < 1) {
             chara.kill();
             this.winGame();
-            counter = 9;
         } else {
             bullet.kill();
             counter--;
