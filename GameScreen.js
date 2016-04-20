@@ -158,6 +158,8 @@ var GameScreen = {
         
         game.physics.arcade.collide(mbls, this.grg, this.destroy, null, this);
         
+        game.physics.arcade.collide (mbls, bullets, this.tall, null, this);
+        
         if (charaFacingRight) {
         background.tilePosition.x -= 2;
         floors.tilePosition.x -= 2;
