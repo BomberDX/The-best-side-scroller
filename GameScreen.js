@@ -266,6 +266,7 @@ var GameScreen = {
             chara.kill();
             this.winGame();
             counter = 9;
+            grgcount = 2;
         } else {
             bullet.kill();
             counter--;
@@ -278,6 +279,7 @@ var GameScreen = {
             //call endscreen
             this.endGame();
             grgcount = 2;
+            counter = 9;
         } else {
             mbls.kill();
             grgcount--;
