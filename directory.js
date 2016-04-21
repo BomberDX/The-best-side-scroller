@@ -18,4 +18,4 @@ game.state.add('GameOverScreen', GameOverScreen);
 //game.state.add('what the state will be named', the object that the state is contained within)
 
 //begins the game at the TitleScreen state
-game.state.start('TitleScreen');
+game.state.start('WinScreen');
