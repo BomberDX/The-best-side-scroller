@@ -15,7 +15,7 @@ var time = 60;
 
 var GameScreen = {
     preload: function () {
-        game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 8);
+        game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 4);
         game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
