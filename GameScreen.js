@@ -15,8 +15,8 @@ var time = 60;
 
 var GameScreen = {
     preload: function () {
-        game.load.spritesheet('gr', 'assets/images/guy_walk_spritesheet.png', 58, 87, 4);
-        game.load.spritesheet('mo', 'assets/images/marioWalk.png', 40, 34, 8);
+        game.load.spritesheet('gr', 'assets/images/gun walk.png',90, 118, 4);
+        game.load.spritesheet('mo', 'assets/images/bad_guy.jpg', 99.8, 80, 10);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', 'assets/images/penst.png');
@@ -24,7 +24,7 @@ var GameScreen = {
         game.load.image('mbl', 'assets/images/mario_bullet.png');
     },
     create: function() {
-       
+       console.log("in intro to GameScreen");
         
         //Keyboard
         this.wasd = {
@@ -172,11 +172,11 @@ var GameScreen = {
             charaFacingRight = true;
             this.grg.body.velocity.x = 350;
             this.grg.anchor.setTo(.5,1);
-            this.grg.scale.x = 1;
+            this.grg.scale.x = -1;
         } else if (this.wasd.left.isDown) { //if the left arrow is pressed, move to the left
             charaFacingRight = false;
             this.grg.anchor.setTo(.5,1);
-            this.grg.scale.x = -1;
+            this.grg.scale.x = 1;
             this.grg.body.velocity.x = -350;
         } else if (this.wasd.down.isDown) { //if the down arrow is pressed, move downwards
             this.grg.body.velocity.y = 350;

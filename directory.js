@@ -4,6 +4,9 @@ var game = new Phaser.Game(1000, 580, Phaser.AUTO, 'gameDiv');
 //adds the TitleScreen object as a Phaser state to the game
 game.state.add('TitleScreen', TitleScreen);
 
+//adds the TitleScreen object as a Phaser state to the game
+game.state.add('Intro', Intro);
+
 //adds the GameScreen object as a Phaser state to the game
 game.state.add('GameScreen', GameScreen);
 

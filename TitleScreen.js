@@ -50,8 +50,9 @@ var TitleScreen = {
     //this is a method we created and named ourselves
     //it will only run when it is told to by some other method
     startGame: function() {
+        console.log("in TitleScreen to intro");
         //start the state 'GameScreen', as defined in the directory
-        this.state.start('GameScreen');
+        this.state.start('Intro');
     }
     
 };
