@@ -14,7 +14,7 @@ var WinScreen = {
         game.load.image('pl', 'assets/images/platforms.png', 100, 100, 45);
         game.load.spritesheet('bg', 'assets/images/backgroundgif.png',740, 224);
         game.load.image('mbl', 'assets/images/mario_bullet.png');
-        game.load.image('tr', 'assets/images/compgif.png'256, 256);
+        game.load.image('tr', 'assets/images/compgif.png', 256, 256);
     },
     create: function() {
        
