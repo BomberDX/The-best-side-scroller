@@ -12,9 +12,9 @@ var WinScreen = {
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', 'assets/images/platforms.png', 100, 100, 45);
-        game.load.image('bg', 'assets/images/background.png', 1000, 100);
+        game.load.spritesheet('bg', 'assets/images/backgroundgif.png',740, 224);
         game.load.image('mbl', 'assets/images/mario_bullet.png');
-        game.load.image('tr', 'assets/images/trophy.jpg');
+        game.load.image('tr', 'assets/images/compgif.png'256, 256);
     },
     create: function() {
        
@@ -28,7 +28,11 @@ var WinScreen = {
               
          };
         
-        background = game.add.tileSprite(0, 0, 1000, 800, 'bg');
+        this.bg = game.add.sprite(0, 0, 'bg');
+        this.bg.width = game.world.width;
+        this.bg.height = game.world.height;
+        this.bg.animations.add('walk');
+        this.bg.animations.play('walk', 15, true);
         floors = game.add.tileSprite(0, 548, 1000, game.width, 'floor');
         floors.physicsType = Phaser.SPRITE;
         game.physics.arcade.enable(floors);
@@ -67,10 +71,8 @@ var WinScreen = {
         game.physics.arcade.collide(this.tr, this.grg, this.title, null, this);
         
         if (charaFacingRight) {
-        background.tilePosition.x -= 2;
         floors.tilePosition.x -= 2;
         } else {
-            background.tilePosition.x += 2;
         floors.tilePosition.x += 2;
         }
         

@@ -2,7 +2,7 @@ var isFacingRight = true;
 var isFacingRight2 = true;
 var charaFacingRight = true;
 var mrokill = true;
-var counter = 9;
+var counter = 4;
 
 var background;
 var floors;
@@ -16,11 +16,12 @@ var time = 60;
 var GameScreen = {
     preload: function () {
         game.load.spritesheet('gr', 'assets/images/gun walk.png',90, 118, 4);
-        game.load.spritesheet('mo', 'assets/images/bad_guy.jpg', 99.8, 80, 10);
+        game.load.spritesheet('mo', 'assets/images/badguy.png', 64, 64, 14);
         game.load.image('floor', 'assets/images/floor.jpg');
         game.load.image('bullet', 'assets/images/bullet.png');
         game.load.image('pl', 'assets/images/penst.png');
-        game.load.image('bg', 'assets/images/background.png');
+        game.load.spritesheet('bg', 'assets/images/backgroundgif.png',740, 224);
+
         game.load.image('mbl', 'assets/images/mario_bullet.png');
     },
     create: function() {
@@ -35,7 +36,11 @@ var GameScreen = {
               
          };
         
-        background = game.add.tileSprite(0, 0, 1000, 800, 'bg');
+        this.bg = game.add.sprite(0, 0, 'bg');
+        this.bg.width = game.world.width;
+        this.bg.height = game.world.height;
+        this.bg.animations.add('walk');
+        this.bg.animations.play('walk', 15, true);
         floors = game.add.tileSprite(0, 548, 1000, game.width, 'floor');
         floors.physicsType = Phaser.SPRITE;
         game.physics.arcade.enable(floors);
@@ -71,7 +76,7 @@ var GameScreen = {
         
         this.ts = game.add.sprite(410, 290, 'pl');
         
-        this.io = game.add.sprite(95, 210, 'pl');
+        //this.io = game.add.sprite(95, 210, 'pl');
         
         this.la = game.add.sprite(95, 380, 'pl');
         
@@ -81,7 +86,7 @@ var GameScreen = {
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.pl);
         game.physics.arcade.enable(this.ts);
-        game.physics.arcade.enable(this.io);
+        //game.physics.arcade.enable(this.io);
         game.physics.arcade.enable(this.la);
         game.physics.arcade.enable(this.ru);
         
@@ -105,14 +110,15 @@ var GameScreen = {
         this.ts.width = 200;
         this.ts.body.allowGravity = false;
         this.ts.body.checkCollision.down = false;
-        
+       
+        /*
         this.io.body.immovable = true;
         this.io.body.collideWorldBounds = true;
         this.io.height = 30;
         this.io.width = 200;
         this.io.body.allowGravity = false;
         this.io.body.checkCollision.down = false;
-        
+        */
         this.la.body.immovable = true;
         this.la.body.collideWorldBounds = true;
         this.la.height = 30;
@@ -132,7 +138,7 @@ var GameScreen = {
         
         this.platforms.add(this.pl);
         this.platforms.add(this.ts);
-        this.platforms.add(this.io);
+       // this.platforms.add(this.io);
         this.platforms.add(this.la);
         this.platforms.add(this.ru);
 
@@ -161,10 +167,8 @@ var GameScreen = {
         game.physics.arcade.collide (mbls, bullets, this.tall, null, this);
         
         if (charaFacingRight) {
-        background.tilePosition.x -= 2;
         floors.tilePosition.x -= 2;
         } else {
-            background.tilePosition.x += 2;
         floors.tilePosition.x += 2;
         }
         
@@ -185,7 +189,7 @@ var GameScreen = {
             this.grg.body.velocity.x = 0;
         }
         
-        if (this.mro.body.x <= game.world.width - 50 && isFacingRight) {
+        if (this.mro.body.x <= game.world.width - 74 && isFacingRight) {
             this.mro.body.velocity.x = 400;//is going to right of screen going this fast
             this.mro.anchor.setTo(.5,1);//will flip to the left
             
@@ -265,7 +269,7 @@ var GameScreen = {
         if (counter < 1) {
             chara.kill();
             this.winGame();
-            counter = 9;
+            counter = 4;
             grgcount = 2;
         } else {
             bullet.kill();
@@ -279,7 +283,7 @@ var GameScreen = {
             //call endscreen
             this.endGame();
             grgcount = 2;
-            counter = 9;
+            counter = 4;
         } else {
             mbls.kill();
             grgcount--;

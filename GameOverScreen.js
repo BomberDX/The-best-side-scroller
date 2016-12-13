@@ -1,13 +1,15 @@
 var GameOverScreen =  {
     preload : function () {
 //        game.load.image = ('/assets/images/background khanda.png');
-        game.load.image('bg' , 'assets/images/game_background.png' );
+        game.load.spritesheet('bg', 'assets/images/backgroundgif.png',740, 224);
         game.load.image('go' , 'assets/images/oops.jpeg')
     },
     create: function () {
-        this.bg = game.add.image(0,0, 'bg');
-        this.bg.width = game.width;
-        this.bg.height = game.height;
+        this.bg = game.add.sprite(0, 0, 'bg');
+        this.bg.width = game.world.width;
+        this.bg.height = game.world.height;
+        this.bg.animations.add('walk');
+        this.bg.animations.play('walk', 15, true);
         var style = {font: '100px Arial', fill:'#000000', align: 'center'};
         this.text = game.add.text(game.world.centerX-40, game.world.centerY-40, 'GAME OVER');
         this.test = this.add.button(459, 300, 'go', this.startGame, this);
