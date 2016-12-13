@@ -76,7 +76,7 @@ var GameScreen = {
         
         this.ts = game.add.sprite(410, 290, 'pl');
         
-        //this.io = game.add.sprite(95, 210, 'pl');
+        this.io = game.add.sprite(95, 210, 'pl');
         
         this.la = game.add.sprite(95, 380, 'pl');
         
@@ -86,7 +86,7 @@ var GameScreen = {
         game.physics.arcade.enable(this.mro);
         game.physics.arcade.enable(this.pl);
         game.physics.arcade.enable(this.ts);
-        //game.physics.arcade.enable(this.io);
+        game.physics.arcade.enable(this.io);
         game.physics.arcade.enable(this.la);
         game.physics.arcade.enable(this.ru);
         
@@ -111,14 +111,14 @@ var GameScreen = {
         this.ts.body.allowGravity = false;
         this.ts.body.checkCollision.down = false;
        
-        /*
+        
         this.io.body.immovable = true;
         this.io.body.collideWorldBounds = true;
         this.io.height = 30;
         this.io.width = 200;
         this.io.body.allowGravity = false;
         this.io.body.checkCollision.down = false;
-        */
+        
         this.la.body.immovable = true;
         this.la.body.collideWorldBounds = true;
         this.la.height = 30;
@@ -138,7 +138,7 @@ var GameScreen = {
         
         this.platforms.add(this.pl);
         this.platforms.add(this.ts);
-       // this.platforms.add(this.io);
+        this.platforms.add(this.io);
         this.platforms.add(this.la);
         this.platforms.add(this.ru);
 
